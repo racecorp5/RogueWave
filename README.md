@@ -15,11 +15,11 @@ Rouge -ship inside
 Tsunami - house inside
 Ad wave- no dmg but must watch
 
-Waves hace speed slow norm fast with 3 different crests
+Waves have speed slow norm fast with 3 different crests
 
 
-Parchases-
-  Poseidon - invencible
+Purchases-
+  Poseidon - invincible
   Shrink ray for moon - health
   Baffles - speed
   Remove a wave

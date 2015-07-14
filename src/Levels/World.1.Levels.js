@@ -1,0 +1,20 @@
+var Level1 = {
+    world:1,
+    level:1,
+    zoom:1,
+    speed:1,
+    money:1,
+    wavesMax:6,
+    waves:[
+        {
+            ShowType:"Repeate",
+            ShowTime:"00:02",
+            Types:[0,1,2]
+        },
+        {
+            ShowType:"Repeate",
+            ShowTime:"00:05",
+            Types:[3,4,5]
+        }
+    ]
+};

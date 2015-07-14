@@ -1,5 +1,19 @@
+var GameLayer = cc.Layer.extend({
+    sprite:null,
+    ctor:function () {
+        this._super();
+        var size = cc.winSize;
+        var helloLabel = new cc.LabelTTF("Game Screen", "Arial", 38);
+        // position the label on the center of the screen
+        helloLabel.x = size.width / 2;
+        helloLabel.y = 50;
+        // add the label as a child to this layer
+        this.addChild(helloLabel, 5);
+        return true;
+    }
+});
 
-var HelloWorldLayer = cc.Layer.extend({
+var TitleLayer = cc.Layer.extend({
     sprite:null,
     ctor:function () {
         //////////////////////////////
@@ -12,12 +26,12 @@ var HelloWorldLayer = cc.Layer.extend({
         // ask the window size
         var size = cc.winSize;
 
-        // add a "close" icon to exit the progress. it's an autorelease object
+        //build the menu
         var closeItem = new cc.MenuItemImage(
             res.CloseNormal_png,
             res.CloseSelected_png,
             function () {
-                cc.log("Menu is clicked!");
+                cc.log("Close is clicked!");
             }, this);
         closeItem.attr({
             x: size.width - 20,
@@ -26,16 +40,46 @@ var HelloWorldLayer = cc.Layer.extend({
             anchorY: 0.5
         });
 
-        var menu = new cc.Menu(closeItem);
+        var aboutItem = new cc.MenuItemImage(
+            res.CloseNormal_png,
+            res.CloseSelected_png,
+            function () {
+                cc.log("About is clicked!");
+            }, this);
+        aboutItem.attr({
+            x: size.width - 40,
+            y: 40,
+            anchorX: 0.5,
+            anchorY: 0.5
+        });
+
+        var gameItem = new cc.MenuItemImage(
+            res.CloseNormal_png,
+            res.CloseSelected_png,
+            function () {
+                cc.log("Game is clicked!");
+                var scene = new cc.Scene();
+                scene.addChild(new GameLayer());
+                cc.director.runScene(new cc.TransitionFade(1.2, scene));
+            }, this);
+        aboutItem.attr({
+            x: size.width - 80,
+            y: 80,
+            anchorX: 0.5,
+            anchorY: 0.5
+        });
+
+        var menu = new cc.Menu(closeItem, aboutItem, gameItem);
         menu.x = 0;
         menu.y = 0;
         this.addChild(menu, 1);
+
 
         /////////////////////////////
         // 3. add your codes below...
         // add a label shows "Hello World"
         // create and initialize a label
-        var helloLabel = new cc.LabelTTF("Hello World", "Arial", 38);
+        var helloLabel = new cc.LabelTTF("Title Screen", "Arial", 38);
         // position the label on the center of the screen
         helloLabel.x = size.width / 2;
         helloLabel.y = 0;
@@ -68,11 +112,30 @@ var HelloWorldLayer = cc.Layer.extend({
     }
 });
 
-var HelloWorldScene = cc.Scene.extend({
+var TitleScene = cc.Scene.extend({
     onEnter:function () {
         this._super();
-        var layer = new HelloWorldLayer();
+        var layer = new TitleLayer();
         this.addChild(layer);
     }
 });
 
+var GameScene = cc.Scene.extend({
+    onEnter:function () {
+        this._super();
+        var layer = new GameLayer();
+        this.addChild(layer);
+    }
+});
+
+/*
+Game
+Purchase
+Settings/About
+Title
+Splash
+Upgrade
+World/Level
+Enemy Wave List
+Achievements
+*/

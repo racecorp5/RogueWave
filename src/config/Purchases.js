@@ -1,0 +1,51 @@
+var Purchases = [
+    {
+        id:1,
+        name:"Poseidon",
+        description:"Invincible",
+        image:"",
+        cost:1000,
+    },
+    {
+        id:2,
+        name:"Moon Ray",
+        description:"Shrink the moon, waves have less health",
+        image:"",
+        cost:8000,
+    },
+    {
+        id:3,
+        name:"Baffles",
+        description:"Slow waves down",
+        image:"",
+        cost:2000,
+    },
+    {
+        id:4,
+        name:"Wave-B-Gone",
+        description:"Completely remove 3 waves",
+        image:"",
+        cost:5000,
+    },
+    {
+        id:5,
+        name:"Mayor",
+        description:"Get more money",
+        image:"",
+        cost:1000,
+    },
+    {
+        id:6,
+        name:"Global Warming",
+        description:"Your waves have more health and speed",
+        image:"",
+        cost:10000,
+    },
+    {
+        id:7,
+        name:"Repair Bots",
+        description:"Fix your city over time",
+        image:"",
+        cost:10000,
+    },
+];
