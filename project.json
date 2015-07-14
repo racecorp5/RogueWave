@@ -11,6 +11,11 @@
     "modules" : ["cocos2d"],
 
     "jsList" : [
+        "src/config/Achievements.js",
+        "src/config/Cities.js",
+        "src/config/Purchases.js",
+        "src/config/Upgrades.js",
+        "src/config/Waves.js",
         "src/resource.js",
         "src/app.js"
     ]

@@ -8,7 +8,6 @@ var BadWaves = [
         health:1,
         damage:1,
     },
-
     {
         id:2,
         name:"Weak2",

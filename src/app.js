@@ -1,77 +1,41 @@
-var GameLayer = cc.Layer.extend({
-    sprite:null,
-    ctor:function () {
-        this._super();
-        var size = cc.winSize;
-        var helloLabel = new cc.LabelTTF("Game Screen", "Arial", 38);
-        // position the label on the center of the screen
-        helloLabel.x = size.width / 2;
-        helloLabel.y = 50;
-        // add the label as a child to this layer
-        this.addChild(helloLabel, 5);
-        return true;
-    }
-});
-
 var TitleLayer = cc.Layer.extend({
     sprite:null,
     ctor:function () {
-        //////////////////////////////
-        // 1. super init first
         this._super();
-
-        /////////////////////////////
-        // 2. add a menu item with "X" image, which is clicked to quit the program
-        //    you may modify it.
-        // ask the window size
         var size = cc.winSize;
 
         //build the menu
-        var closeItem = new cc.MenuItemImage(
-            res.CloseNormal_png,
-            res.CloseSelected_png,
+        var closeItem = new cc.MenuItemImage(res.CloseNormal_png, res.CloseSelected_png,
             function () {
                 cc.log("Close is clicked!");
+                //
             }, this);
-        closeItem.attr({
-            x: size.width - 20,
-            y: 20,
-            anchorX: 0.5,
-            anchorY: 0.5
-        });
 
-        var aboutItem = new cc.MenuItemImage(
-            res.CloseNormal_png,
-            res.CloseSelected_png,
+        var aboutItem = new cc.MenuItemImage(res.CloseNormal_png, res.CloseSelected_png,
             function () {
                 cc.log("About is clicked!");
+                //
             }, this);
-        aboutItem.attr({
-            x: size.width - 40,
-            y: 40,
-            anchorX: 0.5,
-            anchorY: 0.5
-        });
 
-        var gameItem = new cc.MenuItemImage(
-            res.CloseNormal_png,
-            res.CloseSelected_png,
+        var gameItem = new cc.MenuItemImage(res.CloseNormal_png, res.CloseSelected_png,
             function () {
                 cc.log("Game is clicked!");
                 var scene = new cc.Scene();
-                scene.addChild(new GameLayer());
+                scene.addChild(new GamePlayLayer());
                 cc.director.runScene(new cc.TransitionFade(1.2, scene));
             }, this);
-        aboutItem.attr({
-            x: size.width - 80,
-            y: 80,
-            anchorX: 0.5,
-            anchorY: 0.5
-        });
 
-        var menu = new cc.Menu(closeItem, aboutItem, gameItem);
-        menu.x = 0;
-        menu.y = 0;
+        var waveListItem = new cc.MenuItemImage(res.CloseNormal_png, res.CloseSelected_png,
+            function () {
+                cc.log("Enemies is clicked!");
+                var scene = cc.director.getRunningScene();
+                scene.addChild(new WaveListLayer());
+            }, this);
+
+        var menu = new cc.Menu(closeItem, aboutItem, gameItem, waveListItem);
+        menu.alignItemsHorizontally();
+        menu.x = 300;
+        menu.y = 50;
         this.addChild(menu, 1);
 
 
@@ -111,6 +75,45 @@ var TitleLayer = cc.Layer.extend({
         return true;
     }
 });
+var LevelSelectLayer = cc.Layer.extend({});
+var UpgradeLayer = cc.Layer.extend({});
+var PurchaseLayer = cc.Layer.extend({});
+var WaveListLayer = cc.Layer.extend({
+    sprite:null,
+    ctor:function () {
+        this._super();
+        var size = cc.winSize;
+        for(i in BadWaves) {
+            var helloLabel = new cc.LabelTTF(BadWaves[i].name, "Arial", 38);
+            // position the label on the center of the screen
+            helloLabel.x = size.width / 2;
+            helloLabel.y = 50 + (i * 20);
+            // add the label as a child to this layer
+            this.addChild(helloLabel, 5);
+            cc.log(i);
+        }
+        return true;
+    }
+});
+var AchievementsLayer = cc.Layer.extend({});
+var SettingsLayer = cc.Layer.extend({});
+var AboutLayer = cc.Layer.extend({});
+
+var GamePlayLayer = cc.Layer.extend({
+    sprite:null,
+    ctor:function () {
+        this._super();
+        var size = cc.winSize;
+        var helloLabel = new cc.LabelTTF("Game Play Screen", "Arial", 38);
+        // position the label on the center of the screen
+        helloLabel.x = size.width / 2;
+        helloLabel.y = 50;
+        // add the label as a child to this layer
+        this.addChild(helloLabel, 5);
+        return true;
+    }
+});
+var GameOverLayer = cc.Layer.extend({});
 
 var TitleScene = cc.Scene.extend({
     onEnter:function () {
@@ -119,16 +122,33 @@ var TitleScene = cc.Scene.extend({
         this.addChild(layer);
     }
 });
-
 var GameScene = cc.Scene.extend({
     onEnter:function () {
         this._super();
-        var layer = new GameLayer();
+        var layer = new GamePlayLayer();
         this.addChild(layer);
     }
 });
 
 /*
+Title Scene
+  Title Layer
+  LevelSelect Layer
+  Upgrade Layer
+  Purchase Layer
+  WaveList Layer
+  Achievements Layer
+  Settings Layer
+  About Layer
+
+Game Scene
+  GamePlay Layer
+  GameOver Layer
+  LevelSelect Layer
+  Upgrade Layer
+  Purchase Layer
+  Setting Layer
+
 Game
 Purchase
 Settings/About
@@ -138,4 +158,5 @@ Upgrade
 World/Level
 Enemy Wave List
 Achievements
+http://www.supersuraccoon-cocos2d.com/2012/11/14/introduction-to-some-great-ios-gesture-recognition-libraries-cocos2d/
 */
